@@ -2,19 +2,21 @@ import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 
 class RandomWords extends StatefulWidget {
+  const RandomWords({super.key});
+
   @override
   RandomWordsState createState() => RandomWordsState();
 }
 
 class RandomWordsState extends State<RandomWords> {
   final _randomWordPairs = <WordPair>[];
-  final _savedWordPairs = Set<WordPair>();
+  final _savedWordPairs = <WordPair>{};
 
   Widget _buildList() {
     return ListView.builder(
         padding: const EdgeInsets.all(16.0),
         itemBuilder: (context, item) {
-          if (item.isOdd) return Divider();
+          if (item.isOdd) return const Divider();
           final index = item ~/ 2;
           if (index >= _randomWordPairs.length) {
             _randomWordPairs.addAll(generateWordPairs().take(10));
@@ -28,7 +30,7 @@ class RandomWordsState extends State<RandomWords> {
     return ListTile(
       title: Text(
         pair.asPascalCase,
-        style: TextStyle(fontSize: 18),
+        style: const TextStyle(fontSize: 18),
       ),
       trailing: Icon(
         alreadySaved ? Icons.favorite : Icons.favorite_border,
@@ -53,7 +55,7 @@ class RandomWordsState extends State<RandomWords> {
         return ListTile(
           title: Text(
             pair.asPascalCase,
-            style: TextStyle(fontSize: 18),
+            style: const TextStyle(fontSize: 18),
           ),
         );
       });
@@ -62,13 +64,14 @@ class RandomWordsState extends State<RandomWords> {
       return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.purple[900],
-          title: Text('Saved WordPairs'),
+          title: const Text('Saved WordPairs'),
         ),
         body: ListView(children: divided),
       );
     }));
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
@@ -76,7 +79,7 @@ class RandomWordsState extends State<RandomWords> {
           title: const Text('WordPair Generator'),
           actions: <Widget>[
             IconButton(
-              icon: Icon(Icons.list),
+              icon: const Icon(Icons.list),
               onPressed: _pushSaved,
             )
           ],
